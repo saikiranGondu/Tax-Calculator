@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title>TAXMANN - Income Tax Calci</title> 
+<style> 
+body { 
+background-color: lightgrey; 
+} 
+.calculator { 
+max-width: 400px; 
+margin: 0 auto; 
+background-color:white; 
+padding: 20px; 
+border-radius: 5px; 
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+} 
+.calculator label { 
+display: block; 
+margin-bottom: 10px; 
+} 
+.calculator input[type="text"] { 
+width: 100%; 
+padding: 5px; 
+border: 1px solid #ccc; 
+} 
+.calculator input[type="submit"] { 
+display: block; 
+width: 100%; 
+padding: 10px; 
+background-color: #4CAF50; 
+color: white; 
+border: none; 
+cursor: pointer; 
+} 
+.calculator h2 { 
+margin-top: 20px; 
+} 
+</style> 
+<script> 
+function calculateTax() { 
+var income = 
+parseFloat(document.getElementById("income").value); 
+var taxAmount = 0; 
+var surcharge = 0; 
+var healthEducationCess = 0; 
+var totalTaxLiability = 0; 
+if (income <= 250000) { 
+taxAmount = 0; 
+} else if (income <= 500000) { 
+taxAmount = (income - 250000) * 0.05; 
+} else if (income <= 1000000) { 
+taxAmount = 250000 * 0.05 + (income - 500000) * 0.2; 
+} else { 
+taxAmount = 250000 * 0.05 + 500000 * 0.2 + (income - 
+1000000) * 0.3; 
+surcharge = taxAmount * 0.1; 
+} 
+healthEducationCess = taxAmount * 0.04; 
+totalTaxLiability = taxAmount + surcharge + 
+healthEducationCess; 
+document.getElementById("taxAmount").textContent = 
+taxAmount.toFixed(2); 
+document.getElementById("surcharge").textContent = 
+surcharge.toFixed(2); 
+document.getElementById("healthEducationCess").textContent 
+= healthEducationCess.toFixed(2); 
+document.getElementById("totalTaxLiability").textContent = 
+totalTaxLiability.toFixed(2); 
+} 
+</script> 
+</head> 
+<body> 
+<div class="calculator"> 
+<h1>TAXMANN - Income Tax Calci</h1> 
+<form onsubmit="event.preventDefault(); calculateTax();"> 
+<label for="income">Income:</label> 
+<input type="text" id="income" name="income" required> 
+<input type="submit" value="Calculate Tax"> 
+</form> 
+<div id="result"> 
+<h2>Tax Details:</h2> 
+<p>Income Tax: <span id="taxAmount"></span></p> 
+<p>Surcharge: <span id="surcharge"></span></p> 
+<p>Health and Education Cess: <span 
+id="healthEducationCess"></span></p> 
+<p>Total Tax Liability: <span 
+id="totalTaxLiability"></span></p> 
+</div> 
+</div> 
+</body> 
+</html>
